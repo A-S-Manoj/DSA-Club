@@ -11,6 +11,8 @@ import './src/models/Problem.model.js';
 import './src/models/Session.model.js';
 import passport from './src/config/passport.js';
 import authRoutes from './src/routes/auth.routes.js';
+import problemRoutes from './src/routes/problem.routes.js';
+
 const app = express();
 
 // connect database
@@ -33,6 +35,7 @@ app.get('/health', (req, res) => {
 // routes
 app.use(passport.initialize());
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/problems', problemRoutes);
 
 // error handler
 app.use(errorHandler);
