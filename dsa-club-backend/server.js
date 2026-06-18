@@ -6,6 +6,9 @@ import config from './src/config/config.js';
 import connectDB from './src/config/db.js';
 import errorHandler from './src/middleware/errorHandler.middleware.js';
 import logger from './src/utils/logger.js';
+import './src/models/User.model.js';
+import './src/models/Problem.model.js';
+import './src/models/Session.model.js';
 
 const app = express();
 
