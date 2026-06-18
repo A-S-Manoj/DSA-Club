@@ -10,8 +10,12 @@ const userSchema = new mongoose.Schema({
     currentStreak: { type: Number, default: 0 },
     longestStreak: { type: Number, default: 0 },
     lastActiveAt: { type: Date, default: null },
+    passwordResetToken: { type: String },
+    passwordResetExpires: { type: Date },
     createdAt: { type: Date, default: Date.now }
 });
+
+userSchema.index({ passwordResetToken: 1 }, { sparse: true });
 
 const User = mongoose.model('User', userSchema);
 export default User;

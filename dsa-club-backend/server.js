@@ -9,7 +9,8 @@ import logger from './src/utils/logger.js';
 import './src/models/User.model.js';
 import './src/models/Problem.model.js';
 import './src/models/Session.model.js';
-
+import passport from './src/config/passport.js';
+import authRoutes from './src/routes/auth.routes.js';
 const app = express();
 
 // connect database
@@ -29,10 +30,11 @@ app.get('/health', (req, res) => {
     res.json({ success: true, data: { status: 'ok' } });
 });
 
-// routes — to be added in next steps
-// app.use('/api/v1/auth', authRoutes);
+// routes
+app.use(passport.initialize());
+app.use('/api/v1/auth', authRoutes);
 
-// error handler — must be last
+// error handler
 app.use(errorHandler);
 
 app.listen(config.server.port, () => {
