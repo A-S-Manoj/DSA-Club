@@ -1,0 +1,23 @@
+/* DifficultyBadge.module.css */
+.badge {
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    text-transform: capitalize;
+}
+
+.easy {
+    background: var(--color-difficulty-easy-bg);
+    color: var(--color-difficulty-easy);
+}
+
+.medium {
+    background: var(--color-difficulty-medium-bg);
+    color: var(--color-difficulty-medium);
+}
+
+.hard {
+    background: var(--color-difficulty-hard-bg);
+    color: var(--color-difficulty-hard);
+}
