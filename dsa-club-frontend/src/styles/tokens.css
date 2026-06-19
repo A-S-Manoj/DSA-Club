@@ -1,0 +1,80 @@
+:root {
+    /* colors — dark Fight Club theme */
+    --color-bg-primary: #0a0a0a;
+    --color-bg-secondary: #111111;
+    --color-bg-tertiary: #1a1a1a;
+    --color-bg-hover: #222222;
+
+    --color-border-primary: #2a2a2a;
+    --color-border-secondary: #333333;
+
+    --color-text-primary: #e8e8e8;
+    --color-text-secondary: #999999;
+    --color-text-tertiary: #666666;
+
+    --color-accent: #c8a96e;
+    /* gold — fight club palette */
+    --color-accent-hover: #d4b87a;
+
+    --color-success: #4a9e6b;
+    --color-success-bg: #0d2b1a;
+    --color-error: #c0392b;
+    --color-error-bg: #2b0d0d;
+    --color-warning: #e67e22;
+    --color-warning-bg: #2b1a0d;
+    --color-info: #2980b9;
+    --color-info-bg: #0d1a2b;
+
+    --color-difficulty-easy: #4a9e6b;
+    --color-difficulty-easy-bg: #0d2b1a;
+    --color-difficulty-medium: #e67e22;
+    --color-difficulty-medium-bg: #2b1a0d;
+    --color-difficulty-hard: #c0392b;
+    --color-difficulty-hard-bg: #2b0d0d;
+
+    --color-hint: #7f77dd;
+    --color-hint-bg: #1a1830;
+
+    /* typography */
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+    --text-xs: 11px;
+    --text-sm: 12px;
+    --text-md: 13px;
+    --text-base: 14px;
+    --text-lg: 16px;
+    --text-xl: 20px;
+    --text-2xl: 24px;
+    --text-3xl: 32px;
+
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+
+    /* spacing */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-10: 40px;
+    --space-12: 48px;
+
+    /* border radius */
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 10px;
+    --radius-xl: 14px;
+    --radius-full: 9999px;
+
+    /* shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+
+    /* transitions */
+    --transition: 150ms ease;
+}
