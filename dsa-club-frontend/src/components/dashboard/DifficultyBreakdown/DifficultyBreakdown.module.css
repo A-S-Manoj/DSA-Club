@@ -1,0 +1,90 @@
+/* DifficultyBreakdown.module.css */
+.card {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+}
+
+.title {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+}
+
+.pills {
+    display: flex;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.pill {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-3) var(--space-2);
+    border-radius: var(--radius-md);
+    gap: var(--space-1);
+}
+
+.pill.easy {
+    background: var(--color-difficulty-easy-bg);
+}
+
+.pill.medium {
+    background: var(--color-difficulty-medium-bg);
+}
+
+.pill.hard {
+    background: var(--color-difficulty-hard-bg);
+}
+
+.pillCount {
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+}
+
+.easy .pillCount {
+    color: var(--color-difficulty-easy);
+}
+
+.medium .pillCount {
+    color: var(--color-difficulty-medium);
+}
+
+.hard .pillCount {
+    color: var(--color-difficulty-hard);
+}
+
+.pillLabel {
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+}
+
+.bar {
+    height: 6px;
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    display: flex;
+    gap: 2px;
+    margin-bottom: var(--space-3);
+}
+
+.bar .easy {
+    background: var(--color-difficulty-easy);
+}
+
+.bar .medium {
+    background: var(--color-difficulty-medium);
+}
+
+.bar .hard {
+    background: var(--color-difficulty-hard);
+}
+
+.total {
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+}

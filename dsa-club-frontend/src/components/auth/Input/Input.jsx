@@ -11,4 +11,4 @@ const Input = ({ type = 'text', placeholder, value, onChange, disabled }) => (
     />
 );
 
-export default Input;
+export default Input;    

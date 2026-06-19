@@ -1,0 +1,61 @@
+/* TopicBreakdown.module.css */
+.card {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+}
+
+.title {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+}
+
+.empty {
+    font-size: var(--text-sm);
+    color: var(--color-text-tertiary);
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.label {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    width: 130px;
+    flex-shrink: 0;
+    text-transform: capitalize;
+}
+
+.track {
+    flex: 1;
+    height: 6px;
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+    background: var(--color-accent);
+    border-radius: var(--radius-full);
+    transition: width 0.6s ease;
+}
+
+.count {
+    font-size: var(--text-sm);
+    color: var(--color-text-tertiary);
+    width: 20px;
+    text-align: right;
+}
