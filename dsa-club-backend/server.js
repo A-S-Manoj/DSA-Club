@@ -12,6 +12,7 @@ import './src/models/Session.model.js';
 import passport from './src/config/passport.js';
 import authRoutes from './src/routes/auth.routes.js';
 import problemRoutes from './src/routes/problem.routes.js';
+import dashboardRoutes from './src/routes/dashboard.routes.js';
 
 const app = express();
 
@@ -21,7 +22,9 @@ connectDB();
 // middleware
 app.use(cors({
     origin: config.client.url,
-    credentials: true
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 app.use(cookieParser());
@@ -36,6 +39,8 @@ app.get('/health', (req, res) => {
 app.use(passport.initialize());
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/problems', problemRoutes);
+app.use('/api/v1/dashboard', dashboardRoutes);
+
 
 // error handler
 app.use(errorHandler);

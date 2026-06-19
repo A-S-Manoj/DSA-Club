@@ -1,6 +1,5 @@
 import Problem from '../models/Problem.model.js';
 import AppError from '../utils/AppError.js';
-import { scrapeProblem } from './scraper.service.js';
 import { generateContent } from './gemini.service.js';
 import topicInferencePrompt from '../prompts/topicInference.prompt.js';
 
