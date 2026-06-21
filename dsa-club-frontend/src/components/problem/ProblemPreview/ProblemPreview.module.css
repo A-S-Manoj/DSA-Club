@@ -1,0 +1,52 @@
+/* ProblemPreview.module.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.title {
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+}
+
+.badges {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.description {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border-primary);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    max-height: 160px;
+    overflow-y: auto;
+}
+
+.link {
+    font-size: var(--text-sm);
+    color: var(--color-accent);
+    transition: opacity var(--transition);
+}
+
+.link:hover {
+    opacity: 0.8;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}

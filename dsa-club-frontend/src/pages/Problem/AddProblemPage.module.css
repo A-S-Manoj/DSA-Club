@@ -1,0 +1,113 @@
+/* AddProblemPage.module.css */
+.page {
+    min-height: 100vh;
+    background: var(--color-bg-primary);
+}
+
+.main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-6);
+}
+
+.card {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-primary);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+}
+
+.title {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-1);
+}
+
+.subtitle {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-6);
+}
+
+.tabs {
+    display: flex;
+    gap: var(--space-1);
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-md);
+    padding: 3px;
+    margin-bottom: var(--space-6);
+}
+
+.tab {
+    flex: 1;
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition);
+}
+
+.tab:hover {
+    color: var(--color-text-primary);
+}
+
+.activeTab {
+    background: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+    font-weight: var(--font-medium);
+    border: 1px solid var(--color-border-primary);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+}
+
+.textarea {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border-primary);
+    border-radius: var(--radius-md);
+    color: var(--color-text-primary);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    resize: vertical;
+    outline: none;
+    transition: border-color var(--transition);
+    font-family: var(--font-sans);
+}
+
+.textarea:focus {
+    border-color: var(--color-accent);
+}
+
+.textarea::placeholder {
+    color: var(--color-text-tertiary);
+}
+
+.select {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border-primary);
+    border-radius: var(--radius-md);
+    color: var(--color-text-primary);
+    font-size: var(--text-base);
+    outline: none;
+    cursor: pointer;
+    transition: border-color var(--transition);
+    appearance: none;
+}
+
+.select:focus {
+    border-color: var(--color-accent);
+}

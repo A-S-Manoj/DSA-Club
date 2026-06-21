@@ -14,6 +14,7 @@ import authRoutes from './src/routes/auth.routes.js';
 import problemRoutes from './src/routes/problem.routes.js';
 import dashboardRoutes from './src/routes/dashboard.routes.js';
 import sessionRoutes from './src/routes/session.routes.js';
+import configRoutes from './src/routes/config.routes.js';
 
 const app = express();
 
@@ -42,6 +43,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/problems', problemRoutes);
 app.use('/api/v1/dashboard', dashboardRoutes);
 app.use('/api/v1/sessions', sessionRoutes);
+app.use('/api/v1/config', configRoutes);
 
 
 // error handler
