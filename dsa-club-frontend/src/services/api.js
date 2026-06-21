@@ -8,13 +8,37 @@ const request = async (method, path, body = null) => {
         body: body ? JSON.stringify(body) : null
     });
 
-    const data = await res.json();
-
-    if (!data.success) {
-        throw { code: data.error.code, message: data.error.message };
+    let data;
+    const contentType = res.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
+        try {
+            data = await res.json();
+        } catch {
+            // ignore JSON parse error, fallback handled below
+        }
     }
 
-    return data.data;
+    if (data && typeof data === 'object' && 'success' in data) {
+        if (!data.success) {
+            throw {
+                code: data.error?.code || 'UNKNOWN_ERROR',
+                message: data.error?.message || 'An unexpected error occurred'
+            };
+        }
+        return data.data;
+    }
+
+    if (!res.ok) {
+        throw {
+            code: 'HTTP_ERROR',
+            message: `Server returned status ${res.status}: ${res.statusText || 'Error'}`
+        };
+    }
+
+    throw {
+        code: 'INVALID_RESPONSE',
+        message: 'Invalid response format from server'
+    };
 };
 
 export const api = {

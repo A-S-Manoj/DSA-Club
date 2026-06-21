@@ -175,12 +175,7 @@ export const resetPassword = async ({ token, newPassword }) => {
 
     const passwordHash = await bcrypt.hash(newPassword, 12);
     user.passwordHash = passwordHash;
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
     await user.save();
-
-    await User.findByIdAndUpdate(user._id, {
-        $unset: {
-            passwordResetToken: 1,
-            passwordResetExpires: 1
-        }
-    });
 };

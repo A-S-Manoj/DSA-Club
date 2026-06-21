@@ -40,16 +40,16 @@ export const getSessions = async (userId, { status, topic, limit = 20, page = 1 
     const query = { userId };
     if (status) query.status = status;
 
-    let sessions = await Session.find(query)
+    if (topic) {
+        const matchingProblems = await Problem.find({ topic }).select('_id');
+        query.problemId = { $in: matchingProblems.map(p => p._id) };
+    }
+
+    const sessions = await Session.find(query)
         .populate('problemId', 'title difficulty topic url source')
         .sort({ startedAt: -1 })
         .limit(parseInt(limit))
         .skip((parseInt(page) - 1) * parseInt(limit));
-
-    // filter by topic if provided
-    if (topic) {
-        sessions = sessions.filter(s => s.problemId?.topic === topic);
-    }
 
     const total = await Session.countDocuments(query);
 

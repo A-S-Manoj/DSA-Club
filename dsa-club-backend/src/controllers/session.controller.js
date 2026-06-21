@@ -2,22 +2,8 @@ import catchAsync from '../utils/catchAsync.js';
 import * as sessionService from '../services/session.service.js';
 
 export const createSession = catchAsync(async (req, res) => {
-    try {
-        const session = await sessionService.createSession(req.user._id, req.body);
-        res.status(201).json({ success: true, data: session });
-    } catch (err) {
-        if (err.code === 'SESSION_ALREADY_SOLVED') {
-            return res.status(409).json({
-                success: false,
-                error: {
-                    code: err.code,
-                    message: err.message,
-                    data: err.data
-                }
-            });
-        }
-        throw err;
-    }
+    const session = await sessionService.createSession(req.user._id, req.body);
+    res.status(201).json({ success: true, data: session });
 });
 
 export const getSessions = catchAsync(async (req, res) => {

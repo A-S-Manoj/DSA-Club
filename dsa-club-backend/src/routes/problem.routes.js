@@ -9,6 +9,7 @@ const router = Router();
 
 router.post('/',
     protect,
+    importLimiter,
     validate(saveProblemSchema),
     problemController.saveProblem
 );
