@@ -1,26 +1,23 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import styles from './LandingPage.module.css';
 
 const LandingPage = () => {
     const { isAuthenticated, isLoading } = useAuth();
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!isLoading && isAuthenticated) {
-            navigate('/dashboard', { replace: true });
-        }
-    }, [isAuthenticated, isLoading]);
 
     return (
         <div className={styles.page}>
             <nav className={styles.nav}>
                 <span className={styles.logo}>DSA Club</span>
                 <div className={styles.navLinks}>
-                    <Link to="/login" className={styles.navLink}>Sign in</Link>
-                    <Link to="/register" className={styles.navBtn}>Get started</Link>
+                    {isAuthenticated ? (
+                        <Link to="/dashboard" className={styles.navBtn}>Go to Dashboard</Link>
+                    ) : (
+                        <>
+                            <Link to="/login" className={styles.navLink}>Sign in</Link>
+                            <Link to="/register" className={styles.navBtn}>Get started</Link>
+                        </>
+                    )}
                 </div>
             </nav>
 
@@ -28,7 +25,7 @@ const LandingPage = () => {
                 <div className={styles.hero}>
                     <div className={styles.badge}>Powered by AI</div>
                     <h1 className={styles.heading}>
-                        The first rule of DSA Club —<br />
+                         The first rule of DSA Club —<br />
                         <span className={styles.accent}>
                             you do not look at the solution.
                         </span>
@@ -39,12 +36,20 @@ const LandingPage = () => {
                         real interview simulation.
                     </p>
                     <div className={styles.cta}>
-                        <Link to="/register" className={styles.ctaPrimary}>
-                            Join DSA Club
-                        </Link>
-                        <Link to="/login" className={styles.ctaSecondary}>
-                            Sign in
-                        </Link>
+                        {isAuthenticated ? (
+                            <Link to="/dashboard" className={styles.ctaPrimary}>
+                                Go to Dashboard
+                            </Link>
+                        ) : (
+                            <>
+                                <Link to="/register" className={styles.ctaPrimary}>
+                                    Join DSA Club
+                                </Link>
+                                <Link to="/login" className={styles.ctaSecondary}>
+                                    Sign in
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
 

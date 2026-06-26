@@ -1,4 +1,5 @@
-import { createContext, useReducer, useContext } from 'react';
+import { createContext, useReducer, useContext, useEffect } from 'react';
+import { api } from '../services/api';
 
 const AuthContext = createContext(null);
 
@@ -27,6 +28,19 @@ const authReducer = (state, action) => {
 
 export const AuthProvider = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, initialState);
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const user = await api.get('/auth/profile');
+                dispatch({ type: 'AUTH_SUCCESS', payload: user });
+            } catch (error) {
+                dispatch({ type: 'AUTH_FAILURE' });
+            }
+        };
+        checkAuth();
+    }, []);
+
     return (
         <AuthContext.Provider value={{ ...state, dispatch }}>
             {children}

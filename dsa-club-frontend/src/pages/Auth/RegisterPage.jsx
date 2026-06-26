@@ -8,11 +8,12 @@ import GoogleOAuthButton from '../../components/auth/GoogleOAuthButton/GoogleOAu
 import { api } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
+import PageLoader from '../../components/shared/PageLoader/PageLoader';
 import styles from './Auth.module.css';
 
 const RegisterPage = () => {
     const navigate = useNavigate();
-    const { dispatch, isAuthenticated } = useAuth();
+    const { dispatch, isAuthenticated, isLoading } = useAuth();
     const { showToast } = useToast();
 
     const [form, setForm] = useState({
@@ -20,6 +21,10 @@ const RegisterPage = () => {
     });
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
+
+    if (isLoading) {
+        return <PageLoader />;
+    }
 
     if (isAuthenticated) {
         navigate('/dashboard', { replace: true });
