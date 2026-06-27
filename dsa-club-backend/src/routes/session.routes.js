@@ -6,6 +6,9 @@ import {
     createSessionSchema,
     updateSessionStatusSchema
 } from '../validators/session.validator.js';
+import * as messageController from '../controllers/message.controller.js';
+import { messageLimiter } from '../middleware/rateLimiter.middleware.js';
+import { sendMessageSchema } from '../validators/message.validator.js';
 
 const router = Router();
 
@@ -34,6 +37,13 @@ router.patch('/:sessionId/status',
 router.delete('/:sessionId',
     protect,
     sessionController.deleteSession
+);
+
+router.post('/:sessionId/message',
+    protect,
+    messageLimiter,
+    validate(sendMessageSchema),
+    messageController.sendMessage
 );
 
 export default router;
