@@ -17,12 +17,10 @@ export const sendInterviewMessage = catchAsync(async (req, res) => {
         throw new AppError(403, 'SESSION_FORBIDDEN', 'Access denied');
     }
 
-    // interview mode works on solved sessions
     if (session.status !== 'solved') {
-        throw new AppError(400, 'SESSION_ALREADY_COMPLETED', 'Session must be solved before interview mode');
+        throw new AppError(400, 'SESSION_NOT_SOLVED', 'Session must be solved before interview mode');
     }
 
-    // append user explanation to conversation
     const userMessage = {
         role: 'user',
         content: explanation,
