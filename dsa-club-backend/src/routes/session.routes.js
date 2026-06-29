@@ -7,7 +7,7 @@ import {
     updateSessionStatusSchema
 } from '../validators/session.validator.js';
 import * as messageController from '../controllers/message.controller.js';
-import { messageLimiter } from '../middleware/rateLimiter.middleware.js';
+import { messageLimiter, generalLimiter } from '../middleware/rateLimiter.middleware.js';
 import { sendMessageSchema } from '../validators/message.validator.js';
 import * as interviewController from '../controllers/interview.controller.js';
 import { interviewMessageSchema } from '../validators/interview.validator.js';
