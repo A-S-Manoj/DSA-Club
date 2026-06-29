@@ -9,6 +9,8 @@ import {
 import * as messageController from '../controllers/message.controller.js';
 import { messageLimiter } from '../middleware/rateLimiter.middleware.js';
 import { sendMessageSchema } from '../validators/message.validator.js';
+import * as interviewController from '../controllers/interview.controller.js';
+import { interviewMessageSchema } from '../validators/interview.validator.js';
 
 const router = Router();
 
@@ -44,6 +46,13 @@ router.post('/:sessionId/message',
     messageLimiter,
     validate(sendMessageSchema),
     messageController.sendMessage
+);
+
+router.post('/:sessionId/interview',
+    generalLimiter,
+    protect,
+    validate(interviewMessageSchema),
+    interviewController.sendInterviewMessage
 );
 
 export default router;
