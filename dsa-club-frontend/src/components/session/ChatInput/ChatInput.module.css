@@ -1,0 +1,62 @@
+/* ChatInput.module.css */
+.container {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    border-top: 1px solid var(--color-border-primary);
+    background: var(--color-bg-primary);
+}
+
+.input {
+    flex: 1;
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border-primary);
+    border-radius: var(--radius-md);
+    color: var(--color-text-primary);
+    font-size: var(--text-base);
+    line-height: 1.5;
+    resize: none;
+    outline: none;
+    font-family: var(--font-sans);
+    max-height: 120px;
+    overflow-y: auto;
+    transition: border-color var(--transition);
+}
+
+.input:focus {
+    border-color: var(--color-accent);
+}
+
+.input::placeholder {
+    color: var(--color-text-tertiary);
+    font-size: var(--text-sm);
+}
+
+.input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.sendBtn {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    background: var(--color-accent);
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all var(--transition);
+}
+
+.sendBtn:hover:not(:disabled) {
+    background: var(--color-accent-hover);
+}
+
+.sendBtn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
