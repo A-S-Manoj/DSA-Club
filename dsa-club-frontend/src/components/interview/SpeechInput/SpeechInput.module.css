@@ -1,0 +1,119 @@
+/* SpeechInput.module.css */
+.container {
+    padding: var(--space-4);
+    border-top: 1px solid var(--color-border-primary);
+    background: var(--color-bg-primary);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.transcript {
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border-primary);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    min-height: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+}
+
+.pulseDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-error);
+    animation: pulse 1s infinite;
+    flex-shrink: 0;
+    margin-top: 5px;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.micBtn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--color-text-secondary);
+    transition: all var(--transition);
+}
+
+.recording {
+    background: var(--color-error-bg);
+    border-color: var(--color-error);
+    color: var(--color-error);
+    animation: micPulse 1.5s infinite;
+}
+
+@keyframes micPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(192, 57, 43, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 0 8px rgba(192, 57, 43, 0);
+    }
+}
+
+.statusText {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.label {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+}
+
+.activeLabel {
+    font-size: var(--text-sm);
+    color: var(--color-error);
+    font-weight: var(--font-medium);
+}
+
+.sublabel {
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+}
+
+.stopBtn {
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+    padding: var(--space-1) var(--space-3);
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-md);
+    transition: all var(--transition);
+}
+
+.stopBtn:hover {
+    background: rgba(200, 169, 110, 0.1);
+}
