@@ -1,8 +1,15 @@
 import * as SpeechSDK from 'microsoft-cognitiveservices-speech-sdk';
 import { api } from './api';
 
-export const createRecognizer = async () => {
-    const { token, region } = await api.get('/config/speech-token');
+export const createRecognizer = async (cachedToken = null, cachedRegion = null) => {
+    let token = cachedToken;
+    let region = cachedRegion;
+
+    if (!token || !region) {
+        const data = await api.get('/config/speech-token');
+        token = data.token;
+        region = data.region;
+    }
 
     const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, region);
     speechConfig.speechRecognitionLanguage = 'en-US';
