@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import * as SpeechSDK from 'microsoft-cognitiveservices-speech-sdk';
 import Navbar from '../../components/shared/Navbar/Navbar';
 import SessionLeftPanel from '../../components/session/SessionLeftPanel/SessionLeftPanel';
 import ChatWindow from '../../components/session/ChatWindow/ChatWindow';
@@ -37,6 +38,8 @@ const InterviewPage = () => {
     const [liveTranscript, setLiveTranscript] = useState('');
 
     const recognizerRef = useRef(null);
+    const tokenRef = useRef(null);
+    const regionRef = useRef(null);
 
     // load session on mount
     useEffect(() => {
@@ -67,10 +70,12 @@ const InterviewPage = () => {
         if (pageState !== STATES.TIPS) return;
         const prepareRecognizer = async () => {
             try {
-                const recognizer = await createRecognizer();
-                recognizerRef.current = recognizer;
+                const { token, region } = await api.get('/config/speech-token');
+                tokenRef.current = token;
+                regionRef.current = region;
                 setTokenReady(true);
-            } catch {
+            } catch (err) {
+                console.error("Could not fetch speech token:", err);
                 showToast('Could not initialize microphone', 'error');
             }
         };
@@ -80,7 +85,13 @@ const InterviewPage = () => {
     // cleanup recognizer on unmount
     useEffect(() => {
         return () => {
-            recognizerRef.current?.close();
+            if (recognizerRef.current) {
+                try {
+                    recognizerRef.current.close();
+                } catch (e) {
+                    console.error("Error closing recognizer on unmount:", e);
+                }
+            }
         };
     }, []);
 
@@ -120,30 +131,91 @@ const InterviewPage = () => {
         }
     };
 
-    const startListening = () => {
-        const recognizer = recognizerRef.current;
-        if (!recognizer) return;
+    const startListening = async () => {
+        // Clean up any existing recognizer first
+        if (recognizerRef.current) {
+            try {
+                recognizerRef.current.close();
+            } catch (e) {
+                console.error("Error closing existing recognizer:", e);
+            }
+            recognizerRef.current = null;
+        }
 
         setPageState(STATES.LISTENING);
         setLiveTranscript('');
 
-        recognizer.recognizing = (s, e) => {
-            setLiveTranscript(e.result.text);
-        };
+        try {
+            const recognizer = await createRecognizer(tokenRef.current, regionRef.current);
+            recognizerRef.current = recognizer;
 
-        recognizer.recognized = (s, e) => {
-            if (e.result.text) {
-                recognizer.stopContinuousRecognitionAsync();
-                sendExplanation(e.result.text);
-            }
-        };
+            recognizer.recognizing = (s, e) => {
+                setLiveTranscript(e.result.text);
+            };
 
-        recognizer.startContinuousRecognitionAsync();
+            recognizer.recognized = (s, e) => {
+                if (e.result.reason === SpeechSDK.ResultReason.RecognizedSpeech && e.result.text) {
+                    recognizer.stopContinuousRecognitionAsync(
+                        () => {
+                            recognizer.close();
+                            if (recognizerRef.current === recognizer) {
+                                recognizerRef.current = null;
+                            }
+                        },
+                        (err) => {
+                            console.error("Error stopping recognizer:", err);
+                            recognizer.close();
+                            if (recognizerRef.current === recognizer) {
+                                recognizerRef.current = null;
+                            }
+                        }
+                    );
+                    sendExplanation(e.result.text);
+                }
+            };
+
+            recognizer.canceled = (s, e) => {
+                console.error("Speech recognition canceled:", e.reason, e.errorDetails);
+                // 1 corresponds to CancellationReason.Error
+                if (e.reason === 1) {
+                    showToast(`Speech recognition error: ${e.errorDetails || 'Connection failed'}`, 'error');
+                }
+            };
+
+            recognizer.startContinuousRecognitionAsync(
+                () => {
+                    console.log("Speech recognition started successfully");
+                },
+                (err) => {
+                    console.error("Failed to start continuous recognition:", err);
+                    showToast("Failed to start microphone recording", "error");
+                }
+            );
+        } catch (err) {
+            console.error("Failed to initialize speech recognizer:", err);
+            showToast("Failed to initialize microphone", "error");
+        }
     };
 
     const handleManualStop = () => {
         const recognizer = recognizerRef.current;
-        recognizer?.stopContinuousRecognitionAsync();
+        if (recognizer) {
+            recognizer.stopContinuousRecognitionAsync(
+                () => {
+                    recognizer.close();
+                    if (recognizerRef.current === recognizer) {
+                        recognizerRef.current = null;
+                    }
+                },
+                (err) => {
+                    console.error("Error stopping recognizer manually:", err);
+                    recognizer.close();
+                    if (recognizerRef.current === recognizer) {
+                        recognizerRef.current = null;
+                    }
+                }
+            );
+        }
         if (liveTranscript) {
             sendExplanation(liveTranscript);
         }
