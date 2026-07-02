@@ -8,6 +8,10 @@ const conversationEntrySchema = new mongoose.Schema({
         enum: ['approach', 'hint', 'clarification', 'question', 'feedback'],
         required: true
     },
+    interviewCategory: {
+        type: String,
+        default: null
+    },
     timestamp: { type: Date, default: Date.now }
 }, { _id: false });
 
