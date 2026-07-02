@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthCard from '../../components/auth/AuthCard/AuthCard';
 import FormField from '../../components/auth/FormField/FormField';
@@ -22,12 +22,17 @@ const RegisterPage = () => {
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
 
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/dashboard', { replace: true });
+        }
+    }, [isAuthenticated, navigate]);
+
     if (isLoading) {
         return <PageLoader />;
     }
 
     if (isAuthenticated) {
-        navigate('/dashboard', { replace: true });
         return null;
     }
 
