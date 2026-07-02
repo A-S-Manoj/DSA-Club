@@ -34,6 +34,7 @@ export const sendInterviewMessage = catchAsync(async (req, res) => {
         reply,
         interviewComplete,
         questionsAsked,
+        nextCategory,
         feedback
     } = await generateInterviewResponse({
         problem: session.problemId,
@@ -46,6 +47,7 @@ export const sendInterviewMessage = catchAsync(async (req, res) => {
         role: 'assistant',
         content: reply,
         type: interviewComplete ? 'feedback' : 'question',
+        interviewCategory: nextCategory || null,
         timestamp: new Date()
     };
     session.conversation.push(aiMessage);

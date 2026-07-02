@@ -41,8 +41,7 @@ export const generateInterviewResponse = async ({ problem, conversation, latestM
     );
 
     // check if interview is complete
-    const isComplete = questionsAsked >= 4 && remainingCategories.length === 0 ||
-        questionsAsked >= 5;
+    const isComplete = questionsAsked >= 4;
 
     if (isComplete) {
         // generate feedback
