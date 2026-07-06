@@ -121,3 +121,25 @@
     opacity: 0.4;
     cursor: not-allowed;
 }
+
+@media (max-width: 768px) {
+    .panel {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border-primary);
+        flex-direction: row;
+        flex-wrap: wrap;
+        overflow-y: visible;
+    }
+
+    .section {
+        flex: 1;
+        min-width: 160px;
+        border-bottom: none;
+        border-right: 1px solid var(--color-border-primary);
+    }
+
+    .section:last-child {
+        border-right: none;
+    }
+}
