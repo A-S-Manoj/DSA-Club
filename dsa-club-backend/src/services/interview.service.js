@@ -27,7 +27,7 @@ const parseFeedback = (raw) => {
 
 export const generateInterviewResponse = async ({ problem, conversation, latestMessage }) => {
     // count questions asked so far by assistant
-    const assistantMessages = conversation.filter(m => m.role === 'assistant');
+    const assistantMessages = conversation.filter(m => m.role === 'assistant' && m.type !== 'hint');
     const questionsAsked = Math.max(0, assistantMessages.length - 0);
 
     // track which categories have been covered
