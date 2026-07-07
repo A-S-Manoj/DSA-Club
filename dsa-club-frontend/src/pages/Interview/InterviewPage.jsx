@@ -70,7 +70,7 @@ const InterviewPage = () => {
         if (pageState !== STATES.TIPS) return;
         const prepareRecognizer = async () => {
             try {
-                const { token, region } = await api.get('/config/speech-token');
+                const { token, region } = await api.get(`/config/speech-token?_=${Date.now()}`);
                 tokenRef.current = token;
                 regionRef.current = region;
                 setTokenReady(true);
