@@ -17,7 +17,7 @@ export const createRecognizer = async (cachedToken = null, cachedRegion = null) 
     // auto end after 3 seconds of silence
     speechConfig.setProperty(
         SpeechSDK.PropertyId.SpeechServiceConnection_EndSilenceTimeoutMs,
-        '3000'
+        '10000'
     );
     // give up if no speech detected within 15 seconds
     speechConfig.setProperty(
