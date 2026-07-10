@@ -87,7 +87,16 @@ const InterviewPage = () => {
         return () => {
             if (recognizerRef.current) {
                 try {
-                    recognizerRef.current.close();
+                    const recognizer = recognizerRef.current;
+                    recognizer.stopContinuousRecognitionAsync(
+                        () => {
+                            recognizer.close();
+                        },
+                        (err) => {
+                            console.error("Error stopping recognizer on unmount:", err);
+                            recognizer.close();
+                        }
+                    );
                 } catch (e) {
                     console.error("Error closing recognizer on unmount:", e);
                 }

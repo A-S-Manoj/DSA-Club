@@ -1,10 +1,12 @@
 import mongoose from 'mongoose';
+import { differenceInCalendarDays } from 'date-fns';
 import Session from '../models/Session.model.js';
 import User from '../models/User.model.js';
+import logger from '../utils/logger.js';
 
 export const getStats = async (userId) => {
     const user = await User.findById(userId).select(
-        'totalSolved currentStreak longestStreak'
+        'totalSolved currentStreak longestStreak lastActiveAt'
     );
 
     if (!user) {
@@ -18,6 +20,19 @@ export const getStats = async (userId) => {
             difficultyBreakdown: { easy: 0, medium: 0, hard: 0 },
             recentSessions: []
         };
+    }
+
+    // Check if streak is broken/expired (more than 1 calendar day since last active)
+    let currentStreak = user.currentStreak;
+    if (user.lastActiveAt) {
+        const daysDiff = differenceInCalendarDays(new Date(), new Date(user.lastActiveAt));
+        if (daysDiff > 1 && user.currentStreak > 0) {
+            currentStreak = 0;
+            // update in DB asynchronously to keep getStats fast
+            User.findByIdAndUpdate(userId, { currentStreak: 0 }).catch(err => {
+                logger.error({ message: 'Failed to reset expired streak in database', error: err.message, userId });
+            });
+        }
     }
 
     const userObjectId = new mongoose.Types.ObjectId(userId.toString());
@@ -96,7 +111,7 @@ export const getStats = async (userId) => {
 
     return {
         totalSolved: user.totalSolved,
-        currentStreak: user.currentStreak,
+        currentStreak,
         longestStreak: user.longestStreak,
         totalTimeSpentSeconds: totals.totalTimeSpentSeconds,
         avgHintsPerProblem,

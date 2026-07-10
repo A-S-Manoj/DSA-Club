@@ -14,6 +14,10 @@ const INTERVIEW_CATEGORIES = [
 
 const parseFeedback = (raw) => {
     try {
+        const jsonMatch = raw.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+            return JSON.parse(jsonMatch[0]);
+        }
         const cleaned = raw
             .replace(/```json/g, '')
             .replace(/```/g, '')
