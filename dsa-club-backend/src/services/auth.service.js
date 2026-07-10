@@ -17,12 +17,25 @@ const signToken = (id) => {
     });
 };
 
+const parseDurationToMs = (duration) => {
+    if (!duration) return 7 * 24 * 60 * 60 * 1000; // default 7 days
+    const num = parseInt(duration, 10);
+    const unit = duration.replace(num, '').trim().toLowerCase();
+    switch (unit) {
+        case 'd': return num * 24 * 60 * 60 * 1000;
+        case 'h': return num * 60 * 60 * 1000;
+        case 'm': return num * 60 * 1000;
+        case 's': return num * 1000;
+        default: return num;
+    }
+};
+
 const setTokenCookie = (res, token) => {
     res.cookie('token', token, {
         httpOnly: true,
         secure: config.server.isProd,
         sameSite: config.server.isProd ? 'strict' : 'lax',
-        maxAge: 7 * 24 * 60 * 60 * 1000  // 7 days
+        maxAge: parseDurationToMs(config.jwt.expiresIn)
     });
 };
 
