@@ -59,4 +59,20 @@ required.forEach(([key, val]) => {
     }
 });
 
+const optionalWarnings = [
+    ['google.clientId', config.google.clientId, 'Google OAuth will be disabled.'],
+    ['google.clientSecret', config.google.clientSecret, 'Google OAuth will be disabled.'],
+    ['gemini.apiKey', config.gemini.apiKey, 'Gemini AI services will be disabled.'],
+    ['azure.speechKey', config.azure.speechKey, 'Azure Speech Recognition (voice mock interviews) will be disabled.'],
+    ['azure.speechRegion', config.azure.speechRegion, 'Azure Speech Recognition (voice mock interviews) will be disabled.'],
+    ['email.host', config.email.host, 'Password reset email services will be disabled.'],
+    ['email.user', config.email.user, 'Password reset email services will be disabled.']
+];
+
+optionalWarnings.forEach(([key, val, warning]) => {
+    if (!val) {
+        console.warn(`[WARNING] Missing optional env variable: ${key}. ${warning}`);
+    }
+});
+
 export default config;

@@ -2,19 +2,40 @@ import AppError from '../utils/AppError.js';
 import logger from '../utils/logger.js';
 
 const errorHandler = (err, req, res, next) => {
-    logger.error({
-        code: err.code || 'UNKNOWN',
+    let statusCode = 500;
+    if (err instanceof AppError) {
+        statusCode = err.statusCode;
+    } else if (err.name === 'ValidationError' || err.name === 'CastError') {
+        statusCode = 400;
+    } else if (err.name === 'JsonWebTokenError' || err.name === 'TokenExpiredError') {
+        statusCode = 401;
+    } else if (err.code === 11000) {
+        statusCode = 409;
+    }
+
+    const logPayload = {
+        code: err.code || err.name || 'UNKNOWN',
         message: err.message,
         stack: err.stack,
         path: req.path,
         method: req.method,
         userId: req.user?._id || 'unauthenticated'
-    });
+    };
+
+    if (statusCode >= 500) {
+        logger.error(logPayload);
+    } else {
+        logger.warn(logPayload);
+    }
 
     if (err instanceof AppError) {
         return res.status(err.statusCode).json({
             success: false,
-            error: { code: err.code, message: err.message }
+            error: {
+                code: err.code,
+                message: err.message,
+                ...(err.data !== undefined && err.data !== null && { data: err.data })
+            }
         });
     }
 

@@ -1,0 +1,75 @@
+/* FeedbackSection.module.css */
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+}
+
+@media (max-width: 640px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.column {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.icon {
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+}
+
+.strength+.header .icon {
+    color: var(--color-success);
+}
+
+.title {
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+    color: var(--color-text-primary);
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    list-style: none;
+    padding: 0;
+}
+
+.item {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    padding-left: var(--space-4);
+    position: relative;
+}
+
+.item::before {
+    position: absolute;
+    left: 0;
+    font-weight: var(--font-semibold);
+}
+
+.strength::before {
+    content: '✓';
+    color: var(--color-success);
+}
+
+.improvement::before {
+    content: '→';
+    color: var(--color-warning);
+}

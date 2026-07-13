@@ -1,0 +1,29 @@
+/* EmptyState.module.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-10) var(--space-4);
+}
+
+.message {
+    font-size: var(--text-sm);
+    color: var(--color-text-tertiary);
+    text-align: center;
+}
+
+.cta {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-accent);
+    background: rgba(200, 169, 110, 0.1);
+    border: 1px solid rgba(200, 169, 110, 0.3);
+    padding: var(--space-2) var(--space-5);
+    border-radius: var(--radius-md);
+    transition: all var(--transition);
+}
+
+.cta:hover {
+    background: rgba(200, 169, 110, 0.2);
+}

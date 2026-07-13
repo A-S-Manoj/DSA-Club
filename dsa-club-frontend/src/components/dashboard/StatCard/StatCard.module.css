@@ -1,0 +1,37 @@
+/* StatCard.module.css */
+.card {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    transition: border-color var(--transition);
+}
+
+.card:hover {
+    border-color: var(--color-border-secondary);
+}
+
+.label {
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: var(--space-2);
+}
+
+.value {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+    line-height: 1;
+}
+
+.accent {
+    color: var(--color-accent);
+}
+
+.sub {
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+    margin-top: var(--space-1);
+}
