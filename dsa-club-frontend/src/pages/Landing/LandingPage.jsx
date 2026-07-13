@@ -3,7 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import styles from './LandingPage.module.css';
 
 const LandingPage = () => {
-    const { isAuthenticated, isLoading } = useAuth();
+    const { isAuthenticated } = useAuth();
 
     return (
         <div className={styles.page}>

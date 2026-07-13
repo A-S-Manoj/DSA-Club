@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/shared/Navbar/Navbar';
 import SessionRow from '../../components/dashboard/SessionRow/SessionRow';
 import EmptyState from '../../components/shared/EmptyState/EmptyState';
@@ -31,28 +30,27 @@ const HistoryPage = () => {
     const LIMIT = 10;
 
     useEffect(() => {
+        const fetchSessions = async () => {
+            setIsLoading(true);
+            try {
+                const params = new URLSearchParams();
+                params.append('limit', LIMIT);
+                params.append('page', page);
+                if (statusFilter !== 'all') params.append('status', statusFilter);
+                if (topicFilter !== 'all') params.append('topic', topicFilter);
+
+                const data = await api.get(`/sessions?${params.toString()}`);
+                setSessions(data.sessions);
+                setTotal(data.total);
+                setTotalPages(data.totalPages);
+            } catch {
+                showToast('Failed to load history', 'error');
+            } finally {
+                setIsLoading(false);
+            }
+        };
         fetchSessions();
-    }, [page, statusFilter, topicFilter]);
-
-    const fetchSessions = async () => {
-        setIsLoading(true);
-        try {
-            const params = new URLSearchParams();
-            params.append('limit', LIMIT);
-            params.append('page', page);
-            if (statusFilter !== 'all') params.append('status', statusFilter);
-            if (topicFilter !== 'all') params.append('topic', topicFilter);
-
-            const data = await api.get(`/sessions?${params.toString()}`);
-            setSessions(data.sessions);
-            setTotal(data.total);
-            setTotalPages(data.totalPages);
-        } catch {
-            showToast('Failed to load history', 'error');
-        } finally {
-            setIsLoading(false);
-        }
-    };
+    }, [page, statusFilter, topicFilter, showToast]);
 
     const handleStatusChange = (status) => {
         setStatusFilter(status);
