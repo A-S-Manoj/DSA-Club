@@ -17,6 +17,13 @@ export const inferTopic = async (description) => {
 };
 
 export const saveProblem = async (problemData) => {
+    if (problemData.url) {
+        const existing = await Problem.findOne({ url: problemData.url });
+        if (existing) return existing;
+    } else if (problemData.title && problemData.source) {
+        const existing = await Problem.findOne({ title: problemData.title, source: problemData.source });
+        if (existing) return existing;
+    }
     const topic = await inferTopic(problemData.description);
     const problem = await Problem.create({ ...problemData, topic });
     return problem;

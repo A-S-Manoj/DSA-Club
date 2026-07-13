@@ -16,9 +16,33 @@ const getModel = () => {
 export const generateContent = async (prompt) => {
   return retryWithBackoff(async () => {
     const model = getModel();
-    const result = await model.generateContent(prompt);
+    const result = await model.generateContent({
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      generationConfig: {
+        maxOutputTokens: 2000,
+        temperature: 0.7,
+      },
+    });
     const text = result.response.text().trim();
     logger.debug({ message: 'Gemini response', text });
+    return text;
+  });
+};
+
+export const generateJSON = async (prompt, schema) => {
+  return retryWithBackoff(async () => {
+    const model = getModel();
+    const result = await model.generateContent({
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      generationConfig: {
+        maxOutputTokens: 2000,
+        temperature: 0.2,
+        responseMimeType: 'application/json',
+        responseSchema: schema,
+      },
+    });
+    const text = result.response.text().trim();
+    logger.debug({ message: 'Gemini JSON response', text });
     return text;
   });
 };

@@ -6,7 +6,7 @@ const STATE_CONFIG = {
     PROCESSING: { label: 'Processing', sublabel: 'Sending to Tyler...' }
 };
 
-const SpeechInput = ({ state, liveTranscript, onManualStop }) => {
+const SpeechInput = ({ state, liveTranscript, onManualStop, onMicClick }) => {
     const config = STATE_CONFIG[state];
 
     if (!config) return null;
@@ -20,7 +20,11 @@ const SpeechInput = ({ state, liveTranscript, onManualStop }) => {
                 </div>
             )}
             <div className={styles.controls}>
-                <div className={`${styles.micBtn} ${state === 'LISTENING' ? styles.recording : ''}`}>
+                <div 
+                    className={`${styles.micBtn} ${state === 'LISTENING' ? styles.recording : ''}`}
+                    onClick={onMicClick}
+                    style={{ cursor: onMicClick ? 'pointer' : 'default' }}
+                >
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                         <rect x="7" y="2" width="6" height="11" rx="3" fill="currentColor" />
                         <path d="M4 9v1a6 6 0 0012 0V9M10 16v2"

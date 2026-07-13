@@ -1,4 +1,4 @@
-import { generateContent } from './gemini.service.js';
+import { generateContent, generateJSON } from './gemini.service.js';
 import interviewPrompt from '../prompts/interview.prompt.js';
 import feedbackPrompt from '../prompts/feedback.prompt.js';
 import logger from '../utils/logger.js';
@@ -12,8 +12,41 @@ const INTERVIEW_CATEGORIES = [
     'TRACE_THROUGH'
 ];
 
+const feedbackSchema = {
+    type: "OBJECT",
+    properties: {
+        clarityScore: { 
+            type: "INTEGER", 
+            description: "Clarity score from 1 to 10" 
+        },
+        technicalScore: { 
+            type: "INTEGER", 
+            description: "Technical accuracy score from 1 to 10" 
+        },
+        strengths: {
+            type: "ARRAY",
+            items: { type: "STRING" },
+            description: "List of specific strengths observed in the transcript"
+        },
+        improvements: {
+            type: "ARRAY",
+            items: { type: "STRING" },
+            description: "List of specific improvements/actionable suggestions"
+        },
+        summary: { 
+            type: "STRING", 
+            description: "A 2-3 sentence overall assessment of the candidate" 
+        }
+    },
+    required: ["clarityScore", "technicalScore", "strengths", "improvements", "summary"]
+};
+
 const parseFeedback = (raw) => {
     try {
+        const jsonMatch = raw.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+            return JSON.parse(jsonMatch[0]);
+        }
         const cleaned = raw
             .replace(/```json/g, '')
             .replace(/```/g, '')
@@ -49,7 +82,7 @@ export const generateInterviewResponse = async ({ problem, conversation, latestM
             .map(m => `${m.role.toUpperCase()}: ${m.content}`)
             .join('\n');
 
-        const raw = await generateContent(feedbackPrompt({ problem, transcript }));
+        const raw = await generateJSON(feedbackPrompt({ problem, transcript }), feedbackSchema);
         const feedback = parseFeedback(raw);
 
         return {
