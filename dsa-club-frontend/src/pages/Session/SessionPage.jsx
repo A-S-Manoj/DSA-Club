@@ -35,7 +35,7 @@ const SessionPage = () => {
                 setProblem(data.problemId);
                 setConversation(data.conversation || []);
                 setHintsUsed(data.hintsUsed || 0);
-            } catch (err) {
+            } catch {
                 showToast('Failed to load session', 'error');
                 navigate('/dashboard');
             } finally {
@@ -68,7 +68,7 @@ const SessionPage = () => {
 
             setConversation(prev => [...prev, data.reply]);
             setHintsUsed(data.hintsUsed);
-        } catch (err) {
+        } catch {
             // remove optimistic message on failure
             setConversation(prev => prev.slice(0, -1));
             showToast('Failed to get hint. Try again.', 'error');

@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
             try {
                 const user = await api.get('/auth/profile');
                 dispatch({ type: 'AUTH_SUCCESS', payload: user });
-            } catch (error) {
+            } catch {
                 dispatch({ type: 'AUTH_FAILURE' });
             }
         };
