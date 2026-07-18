@@ -34,7 +34,7 @@ const setTokenCookie = (res, token) => {
     res.cookie('token', token, {
         httpOnly: true,
         secure: config.server.isProd,
-        sameSite: config.server.isProd ? 'strict' : 'lax',
+        sameSite: 'lax',
         maxAge: parseDurationToMs(config.jwt.expiresIn)
     });
 };
