@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@newrelic/browser-agent": "^1.318.0",
     "microsoft-cognitiveservices-speech-sdk": "^1.50.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
