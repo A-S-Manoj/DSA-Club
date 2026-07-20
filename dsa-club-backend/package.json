@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "start": "node server.js"
+    "dev": "nodemon --import dotenv/config --import newrelic/esm-loader.mjs server.js",
+    "start": "node --import dotenv/config --import newrelic/esm-loader.mjs server.js"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +26,7 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.7.1",
     "morgan": "^1.11.0",
+    "newrelic": "^14.3.0",
     "nodemailer": "^9.0.1",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
