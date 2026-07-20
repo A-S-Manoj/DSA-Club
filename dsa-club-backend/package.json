@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon --import newrelic/esm-loader.mjs server.js",
+    "dev": "nodemon --exec \"node --import newrelic/esm-loader.mjs\" server.js",
     "start": "node --import newrelic/esm-loader.mjs server.js"
   },
   "keywords": [],
