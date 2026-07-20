@@ -8,6 +8,14 @@ exports.config = {
         filepath: 'stdout'
     },
     allow_all_headers: true,
+    attributes: {
+        exclude: [
+            'request.headers.authorization',
+            'request.headers.cookie',
+            'request.headers.proxyAuthorization',
+            'request.headers.setCookie'
+        ]
+    },
     application_logging: {
         forwarding: {
             enabled: true
