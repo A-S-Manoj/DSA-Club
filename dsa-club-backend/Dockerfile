@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:22-alpine
 
 ENV NODE_ENV=production
 
@@ -13,4 +13,4 @@ USER node
 
 EXPOSE 5000
 
-CMD ["node", "server.js"]
+CMD ["node", "--import", "newrelic/esm-loader.mjs", "server.js"]
