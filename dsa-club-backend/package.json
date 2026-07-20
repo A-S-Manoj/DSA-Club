@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon --import dotenv/config --import newrelic/esm-loader.mjs server.js",
-    "start": "node --import dotenv/config --import newrelic/esm-loader.mjs server.js"
+    "dev": "nodemon --import newrelic/esm-loader.mjs server.js",
+    "start": "node --import newrelic/esm-loader.mjs server.js"
   },
   "keywords": [],
   "author": "",

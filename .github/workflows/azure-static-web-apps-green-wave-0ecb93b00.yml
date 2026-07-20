@@ -24,7 +24,7 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         env:
           VITE_API_URL: ${{ vars.VITE_API_URL }}
-          VITE_NEW_RELIC_LICENSE_KEY: ${{ secrets.VITE_NEW_RELIC_LICENSE_KEY }}
+          VITE_NEW_RELIC_LICENSE_KEY: ${{ vars.VITE_NEW_RELIC_LICENSE_KEY }}
           VITE_NEW_RELIC_APPLICATION_ID: ${{ vars.VITE_NEW_RELIC_APPLICATION_ID }}
           VITE_NEW_RELIC_ACCOUNT_ID: ${{ vars.VITE_NEW_RELIC_ACCOUNT_ID }}
           VITE_NEW_RELIC_AGENT_ID: ${{ vars.VITE_NEW_RELIC_AGENT_ID }}
